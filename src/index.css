@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@source "../.flowbite-react/class-list.json";
+@import "flowbite-react/plugin/tailwindcss";
+@source "../../.flowbite-react/class-list.json";
+/* Hide Flowbite's default dropdown arrow */
+header button[aria-haspopup="menu"] > svg {
+  display: none !important;
+}
+html,
+body,
+#root {
+  min-height: 100%;
+  background-color: #F4EFEC;
+}
+
+body {
+  margin: 0;
+}
