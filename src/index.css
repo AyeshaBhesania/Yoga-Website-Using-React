@@ -17,3 +17,16 @@ body,
 body {
   margin: 0;
 }
+@keyframes heroZoomOut {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+.animate-hero-zoom {
+  animation: heroZoomOut 10s ease-out forwards;
+  will-change: transform;
+}

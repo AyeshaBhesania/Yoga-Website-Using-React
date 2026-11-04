@@ -1,4 +1,5 @@
 
+import { useState, useEffect } from "react";
 import {
   FaFacebookF,
   FaXTwitter,
@@ -7,8 +8,13 @@ import {
   FaArrowRight,
 } from "react-icons/fa6";
 
-const heroBackground =
-  "https://templatekit.aminnastudio.com/flowra/wp-content/uploads/sites/30/2026/08/";
+const heroImages = [
+  "https://templatekit.aminnastudio.com/flowra/wp-content/uploads/sites/30/2026/07/woman-meditating-calmly-with-hands-raised-in-studi-2026-01-08-05-32-07-utc.jpg",
+
+  "https://templatekit.aminnastudio.com/flowra/wp-content/uploads/sites/30/2026/07/woman-doing-yoga-in-warm-cozy-room-2026-01-23-16-29-40-utc.jpg",
+
+  "https://templatekit.aminnastudio.com/flowra/wp-content/uploads/sites/30/2026/07/woman-meditating-on-yoga-mat-in-modern-home-2026-01-08-22-30-59-utc.jpg",
+];
 
 const profiles = [
   "smiling-teen-with-long-hair-posing-in-studio-2026-01-08-22-30-37-utc.jpg",
@@ -16,21 +22,38 @@ const profiles = [
   "radiant-woman-smiling-with-dark-hair-on-grey-2026-03-25-05-26-02-utc.jpg",
 ];
 
+const profileBase =
+  "https://templatekit.aminnastudio.com/flowra/wp-content/uploads/sites/30/2026/08/";
+
 function Hero() {
+  const [activeImage, setActiveImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       id="home"
       className="relative flex min-h-[730px] items-center overflow-hidden bg-[#252A1F] text-white"
     >
-
+      {/* Background slideshow */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        key={activeImage}
+        className="absolute inset-0 animate-hero-zoom bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(20,25,19,0.48), rgba(20,25,19,0.48)), url('https://templatekit.aminnastudio.com/flowra/wp-content/uploads/sites/30/2026/07/woman-meditating-calmly-with-hands-raised-in-studi-2026-01-08-05-32-07-utc.jpg')`,
+          backgroundImage: `url('${heroImages[activeImage]}')`,
         }}
       />
 
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-[rgba(20,25,19,0.48)]" />
 
+      {/* Main heading and buttons */}
       <div className="relative z-10 mx-auto w-full max-w-[1300px] px-5 pt-6">
         <h1 className="max-w-[850px] font-serif text-5xl leading-[1.12] md:text-[80px]">
           Restore Balance
@@ -57,13 +80,13 @@ function Hero() {
         </div>
       </div>
 
-
+      {/* Bottom left: Profiles and supported members */}
       <div className="absolute bottom-8 left-8 z-10 flex items-center gap-4">
         <div className="flex items-center">
           {profiles.map((profile) => (
             <img
               key={profile}
-              src={heroBackground + profile}
+              src={profileBase + profile}
               alt="Flowra member"
               className="-ml-3 h-12 w-12 rounded-full border-2 border-white object-cover first:ml-0"
             />
@@ -88,8 +111,7 @@ function Hero() {
         </div>
       </div>
 
-
-      {/* Bottom right: social icons */}
+      {/* Bottom right: Social icons */}
       <div className="absolute bottom-9 right-8 z-10 flex gap-3">
         <a
           href="#contact"
@@ -123,7 +145,6 @@ function Hero() {
           <FaInstagram size={16} />
         </a>
       </div>
-
     </section>
   );
 }
